@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>IEEE Matching Game : </title>
+	<title>IEEE Matching Game</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="icon" href="ieee.ico" type="image/x-icon"></link>
+  
 </head>
 <style>
 img {
@@ -13,27 +17,48 @@ div {
   height: 500px;
 }
 #rightSide {
-  left : 500px;
+	align-content: center;
+  left : 550px;
   border-left: 1px solid black;
+
 }
+	#leftSide {
+		left: 1;
+	}
 img:hover {
   height: 13  0px;
   width: 130px;
 }
+	body {
+		background-color: #3b5998;
+/*		background-color: white;*/
+	}
+	h1 {
+		color : white;
+	}
+	h2 {
+		color:white;
+	}
 </style>
 <body  id="the_body" onload="generateFaces()">
-	<center><h1>IEEE Matching Game : </h1></center>
-  <h3>Click on the extra smiling face on the left.</h3>
+	<center><h1>IEEE Matching Game </h1></center>
+	<center><h2>Click on the extra smiling face on the left</h2></center>
+	<div id="level"></div>
+	<div id="maxlevel"></div>
+<!--********************************************-->
   <div id="leftSide"></div>
   <div id="rightSide"></div>
+<!--********************************************-->
   <script>
   var numberOfFaces=5;
   var height=64;var width=64;
+	var level=1;
   function generateFaces(){
     var theLeftSide = document.getElementById("leftSide");
     var theRightSide = document.getElementById("rightSide");
     var theBody = document.getElementsByTagName("body")[0];
-
+		var currentLevel = document.getElementById("level");
+		var maxLevel = document.getElementById("maxlevel");
     for(var i=0;i<numberOfFaces;i++){
       var randomTop = Math.random() * 401;
       var randomLeft = Math.random() * 401;
@@ -71,8 +96,6 @@ img:hover {
       theLeftSide.lastChild.onclick = null;
       location.reload();
     };
-
-
   }
   </script>
 </body>
