@@ -11,7 +11,8 @@
 img {
   position: absolute;
 }
-div {
+div#rightSide,
+div#leftSide {
   position: absolute;
   width: 500px;
   height: 500px;
@@ -39,12 +40,19 @@ img:hover {
 	h2 {
 		color:white;
 	}
+  .khaled {
+    color: white;
+    text-align: right;
+    margin-right: 15px;
+  }
 </style>
 <body  id="the_body" onload="generateFaces()">
 	<center><h1>Matching Game </h1></center>
 	<center><h2>Click on the extra smiling face on the left</h2></center>
-	<div id="level"></div>
-	<div id="maxlevel"></div>
+  <div class="khaled">
+    <div >Score: <span id="ta7ona">0</span> Points</div>
+    <div >Top Score: <span id="fato7">0</span> Points</div>
+  </div>
 <!--********************************************-->
   <div id="leftSide"></div>
   <div id="rightSide"></div>
@@ -52,13 +60,19 @@ img:hover {
   <script>
   var numberOfFaces=5;
   var height=64;var width=64;
-	var level=1;
+	var level=0;
+  var topLevel = localStorage.getItem('score');
   function generateFaces(){
     var theLeftSide = document.getElementById("leftSide");
     var theRightSide = document.getElementById("rightSide");
+
+    var score = document.getElementById("ta7ona");
+    var topScore = document.getElementById("fato7");
+
     var theBody = document.getElementsByTagName("body")[0];
-		var currentLevel = document.getElementById("level");
-		var maxLevel = document.getElementById("maxlevel");
+    
+    topScore.innerText = topLevel;
+    
     for(var i=0;i<numberOfFaces;i++){
       var randomTop = Math.random() * 401;
       var randomLeft = Math.random() * 401;
@@ -78,24 +92,31 @@ img:hover {
     theRightSide.appendChild(leftSideImages);
 
     theLeftSide.lastChild.onclick=
-    function nextLevel(event){
-        event.stopPropagation();
-        numberOfFaces += 5;
-        while (theLeftSide.firstChild) {
-                       theLeftSide.removeChild(theLeftSide.firstChild);
-               }
-        while (theRightSide.firstChild){
-                       theRightSide.removeChild(theRightSide.firstChild);
-                      }
-        generateFaces();
-      };
-      theBody.onclick = function gameOver() {
-      alert("Game Over!");
-      alert("Let's Try Again")
-      theBody.onclick = null;
-      theLeftSide.lastChild.onclick = null;
-      location.reload();
-    };
+      function nextLevel(event){
+          event.stopPropagation();
+          numberOfFaces += 5;
+          level += 100;
+          
+          score.innerText = level;
+
+          while (theLeftSide.firstChild) {
+            theLeftSide.removeChild(theLeftSide.firstChild);
+          }
+          while (theRightSide.firstChild){
+            theRightSide.removeChild(theRightSide.firstChild);
+          }
+          generateFaces();
+        };
+
+        theBody.onclick = function gameOver() {
+        
+          alert("Game Over!");
+          alert("Let's Try Again")
+          localStorage.setItem('score',level);
+          theBody.onclick = null;
+          theLeftSide.lastChild.onclick = null;
+          location.reload();
+        };
   }
   </script>
 	<script>
